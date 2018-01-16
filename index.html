@@ -6,16 +6,13 @@
 		<h1>Open MCM APP</h1>
 	</a>
 	
-	
-	
-	<select id='certificateSelect'></select>
-	<input type="button" value="Load certificates"
-		onclick="getCertificates()" />
+	<select id='certificateSelect' />
 		
-			<input type="button" value="Get certificate"
-		onclick="getCertificate()" />
+	<input type="button" value="LoadCertificates" onclick="getCertificates()" />
 		
-		<textarea id="certificateContent" rows="10" cols="80"/>
+	<input type="button" value="GetCertificate" onclick="getCertificate()" />
+		
+	<textarea id="certificateContent" rows="10" cols="80"/>
 
     <script type="text/javascript">
         function onLoad() {           
@@ -25,7 +22,7 @@
 		function getCertificate(){
 			var certJson = window.mcm.getCertificate();
 			var certificate = JSON.parse(certJson);
-			 document.getElementById("certificateContent").value = certificate.content;
+			document.getElementById("certificateContent").value = certificate.content;
 		}
 		
 		function getCertificates(){
