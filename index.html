@@ -29,8 +29,7 @@
 				var cert = certificates[i];
 				var option = new Option();
 				option.value = cert.thumbprint;
-				option.text = (cert.commonName + " : " + cert.mediaType + " : " + cert.cpf + " : " + cert.cnpj + " : "+ cert.name
-						+ " : " + cert.issuerName)
+				option.text = (cert.commonName)
 
 				e.options[e.options.length] = option;
 			}
