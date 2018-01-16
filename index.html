@@ -9,14 +9,15 @@
 	
 	<select id='certificateSelect'></select>
 	<input type="button" value="LoadCertificates" onclick="getCertificates()" />		
-	<input type="button" value="GetCertificate" onclick="getCertificate()" />		
+	<input type="button" value="GetCertificate" onclick="getCertificate()" />	
+	<input type="button" value="GetCertificate" onclick="sign()" />	
 	<textarea id="certificateContent" rows="10" cols="80"></textarea> 
 
     <script type="text/javascript">		
 	
 		function getCertificates(){
-			var certJson = window.mcm.getCertificateList();
-			var certificates = JSON.parse(certJson);
+			var response = window.mcm.getCertificateList();
+			var certificates = JSON.parse(response);
 			onCertificatesLoaded(certificates);
 		}
 		
@@ -24,9 +25,18 @@
 			var option = document.getElementById("certificateSelect");
             var certificateValue = option[option.selectedIndex].value;    
 		
-			var certJson = window.mcm.getCertificate(certificateValue);
-			var certificate = JSON.parse(certJson);
-			document.getElementById("certificateContent").value = "";
+			var response = window.mcm.getCertificate(certificateValue);
+			var parsedReponse = JSON.parse(response);
+			document.getElementById("certificateContent").value = parsedReponse.content;
+		}
+		
+		function sign(){
+			var option = document.getElementById("certificateSelect");
+            var certificateValue = option[option.selectedIndex].value;
+
+			var response = window.mcm.sign(certificateValue, "YQ==");
+			var parsedReponse = JSON.parse(response);
+			document.getElementById("certificateContent").value = parsedReponse.signature;			
 		}
 		
 		function onCertificatesLoaded(certificates) {
