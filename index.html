@@ -16,18 +16,20 @@
         }
 		
 		function getCertificates(){
-			onCertificatesLoaded(window.mcm.getCertificateList())
+			var certJson = window.mcm.getCertificateList();
+			var certificates = JSON.parse(certJson);
+			onCertificatesLoaded(certificates)
 		}
 		
 		function onCertificatesLoaded(certificates) {
 			var e = document.getElementById("certificateSelect");
 			e.options.length = 0;
 			
-			for (i = 0; i < certificates.certificatesInfos.length; i++) {
-				var cert = certificates.certificatesInfos[i];
+			for (i = 0; i < certificates.length; i++) {
+				var cert = certificates[i];
 				var option = new Option();
 				option.value = cert.thumbprint;
-				option.text = (cert.type + " : " + cert.mediaType + " : " + cert.cpf + " : " + cert.cnpj + " : "+ cert.name
+				option.text = (cert.commonName + " : " + cert.mediaType + " : " + cert.cpf + " : " + cert.cnpj + " : "+ cert.name
 						+ " : " + cert.issuerName)
 
 				e.options[e.options.length] = option;
