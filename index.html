@@ -1,0 +1,23 @@
+<html>
+<head>
+</head>
+<body>
+<a href="intent://mcm.app#Intent;scheme=mcm;action=com.scytl.mcm.action.OPEN;S.url=http://mcmreq.getforge.io;S.browser_fallback_url=https%3A%2F%2Fwww.google.com.br;end">
+
+<h1>Open MCM</h1>
+</a>
+    <textarea id="result" rows="10" cols="80"></textarea>
+
+    <script type="text/javascript">
+
+        // ----- PKCS #12 PIN change ----------------------------------------------------------------------
+
+        function onLoad() {           
+           document.getElementById("result").value = window.mcm.test();
+        }
+		
+		onLoad();
+    </script>
+</body>
+</html>
+
