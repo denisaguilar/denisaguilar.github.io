@@ -21,7 +21,10 @@
 		}
 		
 		function getCertificate(){
-			var certJson = window.mcm.getCertificate();
+			var option = document.getElementById("certificateSelect");
+            var certificateValue = option[option.selectedIndex].value;    
+		
+			var certJson = window.mcm.getCertificate(certificateValue);
 			var certificate = JSON.parse(certJson);
 			document.getElementById("certificateContent").value = "";
 		}
