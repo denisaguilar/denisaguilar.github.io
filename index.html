@@ -2,21 +2,33 @@
 <head>
 </head>
 <body>
-<a href="intent://mcm.app#Intent;scheme=mcm;action=com.scytl.mcm.action.OPEN;S.url=https://denisaguilar.github.io/;S.browser_fallback_url=https%3A%2F%2Fwww.google.com.br;end">
-
-<h1>Open MCM</h1>
-</a>
-    <textarea id="result" rows="10" cols="80"></textarea>
+	<a href="intent://mcm.app#Intent;scheme=mcm;action=com.scytl.mcm.action.OPEN;S.url=https://denisaguilar.github.io/;S.browser_fallback_url=https%3A%2F%2Fwww.google.com.br;end">
+		<h1>Open MCM</h1>
+	</a>
+	
+	<select id='certificateSelect'></select>
 
     <script type="text/javascript">
-
-        // ----- PKCS #12 PIN change ----------------------------------------------------------------------
-
         function onLoad() {           
-           document.getElementById("result").value = window.mcm.test();
+           onCertificatesLoaded(window.mcm.test());
         }
 		
-		onLoad();
+		function onCertificatesLoaded(certificates) {
+			var e = document.getElementById("certificateSelect");
+			e.options.length = 0;
+			
+			for (i = 0; i < certificates.certificatesInfos.length; i++) {
+				var cert = certificates.certificatesInfos[i];
+				var option = new Option();
+				option.value = cert.thumbprint;
+				option.text = (cert.type + " : " + cert.mediaType + " : " + cert.cpf + " : " + cert.cnpj + " : "+ cert.name
+						+ " : " + cert.issuerName)
+
+				e.options[e.options.length] = option;
+			}
+		}
+		
+		onLoad();		
     </script>
 </body>
 </html>
