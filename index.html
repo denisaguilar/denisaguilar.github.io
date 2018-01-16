@@ -7,11 +7,17 @@
 	</a>
 	
 	<select id='certificateSelect'></select>
+	<input type="button" value="getCertificates()"
+		onclick="onGetCertificate()" />
 
     <script type="text/javascript">
         function onLoad() {           
-           onCertificatesLoaded(window.mcm.getCertificateList());
+           
         }
+		
+		function getCertificates(){
+			onCertificatesLoaded(window.mcm.getCertificateList())
+		}
 		
 		function onCertificatesLoaded(certificates) {
 			var e = document.getElementById("certificateSelect");
