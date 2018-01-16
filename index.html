@@ -7,18 +7,11 @@
 	</a>
 	
 	<select id='certificateSelect' />
-		
-	<input type="button" value="LoadCertificates" onclick="getCertificates()" />
-		
-	<input type="button" value="GetCertificate" onclick="getCertificate()" />
-		
+	<input type="button" value="LoadCertificates" onclick="getCertificates()" />		
+	<input type="button" value="GetCertificate" onclick="getCertificate()" />		
 	<textarea id="certificateContent" rows="10" cols="80"/>
 
-    <script type="text/javascript">
-        function onLoad() {           
-           
-        }
-		
+    <script type="text/javascript">		
 		function getCertificate(){
 			var certJson = window.mcm.getCertificate();
 			var certificate = JSON.parse(certJson);
@@ -28,7 +21,7 @@
 		function getCertificates(){
 			var certJson = window.mcm.getCertificateList();
 			var certificates = JSON.parse(certJson);
-			onCertificatesLoaded(certificates)
+			onCertificatesLoaded(certificates);
 		}
 		
 		function onCertificatesLoaded(certificates) {
@@ -43,9 +36,7 @@
 
 				e.options[e.options.length] = option;
 			}
-		}
-		
-		onLoad();		
+		}		
     </script>
 </body>
 </html>
