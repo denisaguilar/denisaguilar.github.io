@@ -12,7 +12,7 @@
 	<input type="button" value="GetCertificate" onclick="getCertificate()" />	
 	<input type="button" value="Sign" onclick="sign()" />	
 	<textarea id="certificateContent" rows="10" cols="80"></textarea> 
-	<input type="button" onclick="invokeCSCode('denis')">Invoke C# Code 2</button>
+	<input type="button" onclick="invokeCSCode('denis')" value="Invoke C# Code 2"></button>
 	
 	
 	    <input id="myTextbox" type="text" onchange="sendToCSharp"/><p />
@@ -23,19 +23,17 @@
 	
 	  function sendToCSharp() {
         var textBox = document.getElementById('myTextbox');
-
-        Native("sendToCSharp", textBox.value);
+        
     }
 
     function assignFromCSharp(text) {
-        var textBox = document.getElementById('myTextbox');
+        var textBox = document.getElementById('certificateContent');
         textBox.value = text;
     }
 	
 		function invokeCSCode(data) {
 			try {				
-				var res = invokeCSharpAction(data);
-				document.getElementById("certificateContent").value = res;
+				invokeCSharpAction(data);				
 			}catch (err){
 				console.log(err);
 			}
