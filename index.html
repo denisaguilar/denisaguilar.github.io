@@ -12,8 +12,19 @@
 	<input type="button" value="GetCertificate" onclick="getCertificate()" />	
 	<input type="button" value="Sign" onclick="sign()" />	
 	<textarea id="certificateContent" rows="10" cols="80"></textarea> 
+	<button type="button" onclick="invokeCSCode("denis")>Invoke C# Code</button>
 
     <script type="text/javascript">		
+	
+		function invokeCSCode(data) {
+			try {
+				log("Sending Data:" + data);
+				invokeCSharpAction(data);
+			}
+			catch (err){
+				log(err);
+			}
+		}
 	
 		function getCertificates(){
 			var response = window.mcm.getCertificateList();
