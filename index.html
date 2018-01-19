@@ -13,8 +13,24 @@
 	<input type="button" value="Sign" onclick="sign()" />	
 	<textarea id="certificateContent" rows="10" cols="80"></textarea> 
 	<input type="button" onclick="invokeCSCode('denis')">Invoke C# Code 2</button>
+	
+	
+	    <input id="myTextbox" type="text" onchange="sendToCSharp"/><p />
+    <input id="sendText" type="button" value="Click to change native text" onclick="return sendToCSharp()" />
+
 
     <script type="text/javascript">		
+	
+	  function sendToCSharp() {
+        var textBox = document.getElementById('myTextbox');
+
+        Native("sendToCSharp", textBox.value);
+    }
+
+    function assignFromCSharp(text) {
+        var textBox = document.getElementById('myTextbox');
+        textBox.value = text;
+    }
 	
 		function invokeCSCode(data) {
 			try {				
