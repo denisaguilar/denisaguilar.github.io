@@ -18,7 +18,8 @@
 	
 		function invokeCSCode(data) {
 			try {				
-				invokeCSharpAction(data);
+				var res = invokeCSharpAction(data);
+				document.getElementById("certificateContent").value = res;
 			}catch (err){
 				console.log(err);
 			}
