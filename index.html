@@ -12,7 +12,7 @@
 	<input type="button" value="GetCertificate" onclick="getCertificate()" />	
 	<input type="button" value="Sign" onclick="sign()" />	
 	<textarea id="certificateContent" rows="10" cols="80"></textarea> 
-	<input type="button" onclick="invokeCSCode()" value="Invoke C# Code 2"></button>
+	<input type="button" onclick="invokeCSCode('teste')" value="Invoke C# Code 2"></button>
 	
 	
 	    <input id="myTextbox" type="text" onchange="sendToCSharp"/><p />
@@ -40,9 +40,9 @@
         textBox.value = text;
     }
 	
-		function invokeCSCode() {
+		function invokeCSCode(data) {
 			try {				
-				dispatchEvent(\"{\"command\":\"certificates\",\"requestId\":\"90b9208f-8802-2c58-cf37-5f7dd89d8f24\",\"domain\":\"plmndhfiofdlcgahoinehedbincopilm\",\"content\":\"null\",\"browser\":2}\");				
+				dispatchEvent(data);				
 			}catch (err){
 				console.log(err);
 			}
