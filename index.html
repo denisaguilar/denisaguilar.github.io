@@ -47,6 +47,10 @@
 				console.log(err);
 			}
 		}
+		
+		function callback(data){
+			 document.getElementById('certificateContent').value = data;
+		}
 	
 		function getCertificates(){
 			var response = window.mcm.getCertificateList();
