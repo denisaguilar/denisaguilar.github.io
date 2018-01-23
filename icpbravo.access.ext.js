@@ -2,7 +2,8 @@
 var icpbravoaccess_ie = null;
 
 function callEvent(data) {
-	var customEvent = new CustomEvent('com.scytl.icpbravoaccess.response', { 'detail': data });
+	var responseEventName = 'com.scytl.icpbravoaccess.response';
+	var customEvent = new CustomEvent(responseEventName, { 'detail': data });
 	document.dispatchEvent(customEvent);
 }
 
