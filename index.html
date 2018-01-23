@@ -151,12 +151,14 @@
             unblockui();
         }
 
-        function onGetCertificateSuccess(response) {
-            alert(response.certificate);
+		function onGetCertificateSuccess(response) {
+			document.getElementById("presentData").value = response.certificate;
+			alert(response.certificate);
             unblockui();
         }
 
-        function onSignatureSuccess(response) {
+		function onSignatureSuccess(response) {
+			document.getElementById("presentData").value = response.signature;
             alert(response.signature);
             unblockui();
         }
@@ -194,25 +196,31 @@
 </head>
 <body>
 
-    <select id='certificateSelect'></select>
-    <input type="button" value="Carregar Certificados"
-           onclick="onGetCertificateList()" />
+	<select id='certificateSelect'></select>
+	<input type="button" value="Carregar Certificados"
+		   onclick="onGetCertificateList()" />
 
-    <input type="button" value="Pegar Certificado"
-           onclick="onGetCertificate()" />
-    <input type="button" value="Assinar" onclick="onAssinar()" />
+	<input type="button" value="Pegar Certificado"
+		   onclick="onGetCertificate()" />
+	<input type="button" value="Assinar" onclick="onAssinar()" />
 
-    <br/><br/><br/>
-    <textarea id="toEncrypt" rows="10" cols="80"></textarea>
-    <input type="button" value="Cifrar" onclick="onCipher()" />
-    <br/>
-    <textarea id="toDecrypt" rows="10" cols="80"></textarea>
-    <input type="button" value="Decrifrar" onclick="onDecrypt()" />
-    <br/>
-    <textarea id="decrypted" rows="10" cols="80"></textarea>
+	<br />
+	<textarea id="presentData" rows="10" cols="80"></textarea>
 
-    <script type="text/javascript">
-        //onLoadPage();
-    </script>
+	<br /><br /><br />
+	<p>To Enc Data</p>
+	<textarea id="toEncrypt" rows="10" cols="80"></textarea>
+	<input type="button" value="Cifrar" onclick="onCipher()" />
+	<br />
+	<p>To Dec Data</p>
+	<textarea id="toDecrypt" rows="10" cols="80"></textarea>
+	<input type="button" value="Decrifrar" onclick="onDecrypt()" />
+	<br />
+	<p>Result</p>
+	<textarea id="decrypted" rows="10" cols="80"></textarea>
+
+	<script type="text/javascript">
+																//onLoadPage();
+	</script>
 </body>
 </html>
