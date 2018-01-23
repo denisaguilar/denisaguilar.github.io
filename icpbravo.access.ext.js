@@ -419,8 +419,7 @@ var icpBravoAccessExt = (function () {
 						checkNativeApp(callback, requestData);
 					};
 
-					/* event listener to capture responses from extension */
-					var callback = function(response) {
+					document.addEventListener(responseEventName, function (response) {
 						var message = response.detail;
 
 						var requestPoolItem = requestPool[message.requestId];
@@ -446,7 +445,7 @@ var icpBravoAccessExt = (function () {
 								requestPoolItem.callback._dispatchSuccess(parsedResponse);
 							}
 						}
-					};
+					});
 					break;
 				case browser.IE:
 					/*request dictionary, all requests are registered here.*/
