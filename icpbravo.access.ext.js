@@ -1,12 +1,6 @@
 ﻿/*0.7*/
 var icpbravoaccess_ie = null;
 
-function callEvent(data) {
-	var responseEventName = 'com.scytl.icpbravoaccess.response';
-	var customEvent = new CustomEvent(responseEventName, { 'detail': data });
-	document.dispatchEvent(customEvent);
-}
-
 var icpBravoAccessExt = (function () {
 	var license = null;
 	var angularScope = null;
@@ -455,7 +449,7 @@ var icpBravoAccessExt = (function () {
 					};
 
 					/* event listener to capture responses from extension */
-					document.addEventListener(responseEventName, function (response) {
+					var callback = function(response) {
 						var message = response.detail;
 
 						var requestPoolItem = requestPool[message.requestId];
@@ -481,7 +475,7 @@ var icpBravoAccessExt = (function () {
 								requestPoolItem.callback._dispatchSuccess(parsedResponse);
 							}
 						}
-					});
+					};
 					break;
 				case browser.IE:
 					/*request dictionary, all requests are registered here.*/
@@ -612,6 +606,7 @@ var icpBravoAccessExt = (function () {
 		/*make methods accessible.*/
 		this.requestCommand = requestCommand;
 		this.checkExtension = checkExtension;
+		this.callback = callback;
 	}
 
     /*========================================================================================================================
@@ -794,7 +789,7 @@ var icpBravoAccessExt = (function () {
 
 		return certificates;
 	}
-
+	
 	/*
 	* Certificates:
 	* 
@@ -864,6 +859,9 @@ var icpBravoAccessExt = (function () {
 		_control.requestCommand(callbackHandle, requestData, actions.sign);
 	}
 
+	var callback = function (data) {
+		_control.callback(data);
+	}
 
 	var encrypt = function (args) {
 		var reportResponse = validateEncryptAttrs(args);
@@ -1060,6 +1058,9 @@ var icpBravoAccessExt = (function () {
 		remove: remove,
 		encrypt: encrypt,
 		decrypt: decrypt,
+
+		//private
+		callback: callback,
 		/*config*/
 		enableLog: isLogEnable,
 	}
