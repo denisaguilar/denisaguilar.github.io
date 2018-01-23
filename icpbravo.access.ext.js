@@ -281,7 +281,7 @@ var icpBravoAccessExt = (function () {
 			}
 			
 			function callbackApp(response) {
-				var message = JSON.parse(response);
+				var message = response;
 
 				var requestPoolItem = requestPool[message.requestId];
 
