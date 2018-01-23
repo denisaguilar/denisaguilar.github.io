@@ -240,7 +240,8 @@ var icpBravoAccessExt = (function () {
 				command: command,
 				requestId: requestId,
 				license: icpBravoAccessExt.license,
-				domain: window.location.hostname,
+				domain: "http://localhost/",
+				//domain: window.location.hostname,
 				content: JSON.stringify(content),
 				browser: getBrowser()
 			}
