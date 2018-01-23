@@ -1,6 +1,11 @@
 ﻿/*0.7*/
 var icpbravoaccess_ie = null;
 
+function callEvent(data) {
+	var customEvent = new CustomEvent('com.scytl.icpbravoaccess.response', { 'detail': data });
+	document.dispatchEvent(customEvent);
+}
+
 var icpBravoAccessExt = (function () {
 	var license = null;
 	var angularScope = null;
@@ -195,20 +200,6 @@ var icpBravoAccessExt = (function () {
 					osVersion = osVersion[1] + '.' + osVersion[2] + '.' + (osVersion[3] | 0);
 					break;
 			}
-
-			//// flash (you'll need to include swfobject)
-			///* script src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" */
-			//var flashVersion = 'no check';
-			//if (typeof swfobject != 'undefined') {
-			//	var fv = swfobject.getFlashPlayerVersion();
-			//	if (fv.major > 0) {
-			//		flashVersion = fv.major + '.' + fv.minor + ' r' + fv.release;
-			//	}
-			//	else {
-			//		flashVersion = unknown;
-			//	}
-			//}
-
 			return {
 				//screen: screenSize,
 				browser: browser,
@@ -323,33 +314,33 @@ var icpBravoAccessExt = (function () {
 				}
 			});
 
-			//function callback(response) {
-			//	var message = response.detail;
+			function callback(response) {
+				var message = response.detail;
 
-			//	var requestPoolItem = requestPool[message.requestId];
+				var requestPoolItem = requestPool[message.requestId];
 
-			//	if (!requestPoolItem) {
-			//		/*error invalid request id               */
-			//	} else {
-			//		delete requestPool[message.requestId];
+				if (!requestPoolItem) {
+					/*error invalid request id               */
+				} else {
+					delete requestPool[message.requestId];
 
-			//		log("Response uuid: " + message.requestId);
+					log("Response uuid: " + message.requestId);
 
-			//		if (message.statusCode === responseStatus.Error) {
-			//			requestPoolItem.callback._dispatchError(message);
-			//		} else if (message.statusCode === responseStatus.Success) {
+					if (message.statusCode === responseStatus.Error) {
+						requestPoolItem.callback._dispatchError(message);
+					} else if (message.statusCode === responseStatus.Success) {
 
-			//			/*parse received message to object*/
-			//			var parsedResponse = JSON.parse(message.content);
+						/*parse received message to object*/
+						var parsedResponse = JSON.parse(message.content);
 
-			//			if (requestPoolItem.callback.onReceiveReponse) {
-			//				parsedResponse = requestPoolItem.callback.onReceiveReponse(parsedResponse);
-			//			}
+						if (requestPoolItem.callback.onReceiveReponse) {
+							parsedResponse = requestPoolItem.callback.onReceiveReponse(parsedResponse);
+						}
 
-			//			requestPoolItem.callback._dispatchSuccess(parsedResponse);
-			//		}
-			//	}
-			//}
+						requestPoolItem.callback._dispatchSuccess(parsedResponse);
+					}
+				}
+			}
 
 		} else {
 			switch (getBrowser()) {
