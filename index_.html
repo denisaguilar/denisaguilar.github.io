@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+	<a href="intent://mcm.app#Intent;scheme=mcm;action=com.scytl.mcm.action.OPEN;S.url=https://denisaguilar.github.io/;S.browser_fallback_url=https%3A%2F%2Fwww.google.com.br;end">
+		<h1>Open MCM APP v7</h1>
+	</a>
+	
+	<select id='certificateSelect'></select>
+	<input type="button" value="LoadCertificates" onclick="getCertificates()" />		
+	<input type="button" value="GetCertificate" onclick="getCertificate()" />	
+	<input type="button" value="Sign" onclick="sign()" />	
+	<textarea id="certificateContent" rows="10" cols="80"></textarea> 
+	<input type="button" onclick="invokeCSCode()" value="Invoke C# Code 2"></button>
+	
+	
+	    <input id="myTextbox" type="text" onchange="sendToCSharp"/><p />
+    <input id="sendText" type="button" value="Click to change native text" onclick="return sendToCSharp()" />
+
+
+    <script type="text/javascript">		
+	
+	  function sendToCSharp() {
+        var textBox = document.getElementById('myTextbox');
+        
+    }
+	
+	
+	function printMultiplicationTable(num, stop)
+{
+    var number = parseInt(num);
+    var stopNumber = parseInt(stop);
+
+    document.getElementById("certificateContent").value = num;
+}
+
+    function assignFromCSharp(text) {
+        var textBox = document.getElementById('certificateContent');
+        textBox.value = text;
+    }
+	
+		function invokeCSCode() {
+			try {		
+					
+				var data = {
+					requestId: "x",
+					internalId: "x",
+					command: "certificates",
+					license: "YQ==",
+					domain: "localhost",
+					content: ""
+				};
+				
+				dispatchEvent(JSON.stringify(data));				
+			}catch (err){
+				console.log(err);
+			}
+		}
+		
+		function callback(data){
+			 document.getElementById('certificateContent').value = data;
+		}
+	
+		function getCertificates(){
+			var response = window.mcm.getCertificateList();
+			var certificates = JSON.parse(response);
+			onCertificatesLoaded(certificates);
+		}
+		
+		function getCertificate(){
+			var option = document.getElementById("certificateSelect");
+            var certificateValue = option[option.selectedIndex].value;    
+		
+			var response = window.mcm.getCertificate(certificateValue);
+			var parsedReponse = JSON.parse(response);
+			document.getElementById("certificateContent").value = parsedReponse.content;
+		}
+		
+		function sign(){
+			var option = document.getElementById("certificateSelect");
+            var certificateValue = option[option.selectedIndex].value;
+
+			var response = window.mcm.sign(certificateValue, "YQ==");
+			var parsedReponse = JSON.parse(response);
+			document.getElementById("certificateContent").value = parsedReponse.signature;			
+		}
+		
+		function onCertificatesLoaded(certificates) {
+			var e = document.getElementById("certificateSelect");
+			e.options.length = 0;
+			
+			for (i = 0; i < certificates.length; i++) {
+				var cert = certificates[i];
+				var option = new Option();
+				option.value = cert.thumbprint;
+				option.text = (cert.commonName)
+
+				e.options[e.options.length] = option;
+			}
+		}		
+    </script>
+</body>
+</html>
+
