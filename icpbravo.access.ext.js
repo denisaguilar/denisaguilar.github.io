@@ -261,6 +261,8 @@ var icpBravoAccessExt = (function () {
 
 		if (envInfo.mobile) {
 
+			var requestPool = {};
+
 			var checkExtension = function (callback, tries) {
 
 				response = {
