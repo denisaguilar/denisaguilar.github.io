@@ -276,10 +276,11 @@ var icpBravoAccessExt = (function () {
 
 				log("Command: " + command + " uuid: " + uuid);
 
+				//dispatch evento to app.
 				dispatchEvent(JSON.stringify(requestData));
 			}
-
-			function callbackHandle(response) {
+			
+			function callbackApp(response) {
 				var message = JSON.parse(response);
 
 				var requestPoolItem = requestPool[message.requestId];
@@ -576,7 +577,7 @@ var icpBravoAccessExt = (function () {
 		/*make methods accessible.*/
 		this.requestCommand = requestCommand;
 		this.checkExtension = checkExtension;
-		this.callbackHandle = callbackHandle;
+		this.callbackApp = callbackApp;
 	}
 
     /*========================================================================================================================
@@ -829,8 +830,8 @@ var icpBravoAccessExt = (function () {
 		_control.requestCommand(callbackHandle, requestData, actions.sign);
 	}
 
-	var callbackHandle = function (data) {
-		_control.callbackHandle(data);
+	var callbackApp = function (data) {
+		_control.callbackApp(data);
 	}
 
 	var encrypt = function (args) {
@@ -1030,7 +1031,7 @@ var icpBravoAccessExt = (function () {
 		decrypt: decrypt,
 
 		//private
-		callbackHandle: callbackHandle,
+		callbackApp: callbackApp,
 
 		/*config*/
 		enableLog: isLogEnable,
