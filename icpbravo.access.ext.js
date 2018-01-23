@@ -40,7 +40,6 @@ var icpBravoAccessExt = (function () {
 			Success: 1
 		};
 
-
 		var envInfo = (function () {
 			var unknown = '-';
 
@@ -280,37 +279,8 @@ var icpBravoAccessExt = (function () {
 				dispatchEvent(JSON.stringify(requestData));
 			}
 
-			/* event listener to capture responses from extension */
-			document.addEventListener(responseEventName, function (response) {
-				var message = response.detail;
-
-				var requestPoolItem = requestPool[message.requestId];
-
-				if (!requestPoolItem) {
-					/*error invalid request id               */
-				} else {
-					delete requestPool[message.requestId];
-
-					log("Response uuid: " + message.requestId);
-
-					if (message.statusCode === responseStatus.Error) {
-						requestPoolItem.callback._dispatchError(message);
-					} else if (message.statusCode === responseStatus.Success) {
-
-						/*parse received message to object*/
-						var parsedResponse = JSON.parse(message.content);
-
-						if (requestPoolItem.callback.onReceiveReponse) {
-							parsedResponse = requestPoolItem.callback.onReceiveReponse(parsedResponse);
-						}
-
-						requestPoolItem.callback._dispatchSuccess(parsedResponse);
-					}
-				}
-			});
-
-			function callback(response) {
-				var message = response.detail;
+			function callbackHandle(response) {
+				var message = JSON.parse(response);
 
 				var requestPoolItem = requestPool[message.requestId];
 
@@ -606,7 +576,7 @@ var icpBravoAccessExt = (function () {
 		/*make methods accessible.*/
 		this.requestCommand = requestCommand;
 		this.checkExtension = checkExtension;
-		this.callback = callback;
+		this.callbackHandle = callbackHandle;
 	}
 
     /*========================================================================================================================
@@ -859,8 +829,8 @@ var icpBravoAccessExt = (function () {
 		_control.requestCommand(callbackHandle, requestData, actions.sign);
 	}
 
-	var callback = function (data) {
-		_control.callback(data);
+	var callbackHandle = function (data) {
+		_control.callbackHandle(data);
 	}
 
 	var encrypt = function (args) {
@@ -1060,7 +1030,8 @@ var icpBravoAccessExt = (function () {
 		decrypt: decrypt,
 
 		//private
-		callback: callback,
+		callbackHandle: callbackHandle,
+
 		/*config*/
 		enableLog: isLogEnable,
 	}
