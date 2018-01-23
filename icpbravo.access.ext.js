@@ -262,7 +262,12 @@ var icpBravoAccessExt = (function () {
 		if (envInfo.mobile) {
 
 			var checkExtension = function (callback, tries) {
-				callback._dispatchSuccess();
+
+				response = {
+					instalationStatus: appStatus.INSTALLED
+				}
+
+				callback._dispatchSuccess(response);
 			};		
 
 			/*request*/
