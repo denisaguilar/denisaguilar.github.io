@@ -7,8 +7,7 @@
      - Policy documentation[1] for details and explanation.
      -
      - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
-    -->
-	<meta property="al:android:url" content="example://products?id=12345" />
+    -->	
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://malsup.github.io/jquery.blockUI.js"></script>
 
@@ -195,6 +194,10 @@
     </script>   
 </head>
 <body>
+
+	<a href="intent://mcm.app#Intent;scheme=mcm;action=com.scytl.mcm.action.OPEN;S.url=https://denisaguilar.github.io/;S.browser_fallback_url=https%3A%2F%2Fwww.google.com.br;end">
+		<h1>Open MCM APP v7</h1>
+	</a>
 
 	<select id='certificateSelect'></select>
 	<input type="button" value="Carregar Certificados"
