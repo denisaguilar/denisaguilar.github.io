@@ -225,8 +225,7 @@ var icpBravoAccessExt = (function () {
 				command: command,
 				requestId: requestId,
 				license: icpBravoAccessExt.license,
-				domain: "http://localhost/",
-				//domain: window.location.hostname,
+				domain: window.location.hostname,
 				content: JSON.stringify(content),
 				browser: getBrowser()
 			}
@@ -250,7 +249,7 @@ var icpBravoAccessExt = (function () {
 
 			var checkExtension = function (callback, tries) {
 
-				response = {
+				var response = {
 					instalationStatus: appStatus.INSTALLED
 				}
 
